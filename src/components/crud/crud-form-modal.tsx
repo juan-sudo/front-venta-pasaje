@@ -46,13 +46,13 @@ export function CrudFormModal({
     : "Completa la informacion principal del modulo y guarda los cambios."
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/55 p-3 backdrop-blur-md sm:p-6">
+    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-x-hidden bg-slate-950/55 p-0 backdrop-blur-md sm:items-center sm:p-6">
       <div className="absolute inset-0" onClick={onClose} aria-hidden="true" />
 
-      <Card className="relative z-10 w-full max-w-4xl overflow-hidden rounded-[28px] border border-slate-200 bg-white py-0 shadow-[0_28px_90px_rgba(15,23,42,0.30)]">
-        <CardHeader className="border-b border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] px-5 py-5 sm:px-7 sm:py-6">
+      <Card className="relative z-10 grid h-[100svh] w-screen max-w-none grid-rows-[auto_minmax(0,1fr)] overflow-hidden rounded-none border-0 bg-white py-0 shadow-none sm:h-auto sm:max-h-[92dvh] sm:w-full sm:max-w-4xl sm:rounded-[28px] sm:border sm:border-slate-200 sm:shadow-[0_28px_90px_rgba(15,23,42,0.30)]">
+        <CardHeader className="border-b border-slate-200 bg-[linear-gradient(180deg,#ffffff_0%,#f8fafc_100%)] px-4 py-4 sm:px-7 sm:py-6">
           <div className="flex items-start justify-between gap-4">
-            <div className="min-w-0 space-y-3">
+            <div className="min-w-0 flex-1 space-y-3">
               <div className="flex flex-wrap items-center gap-2">
                 <Badge className="rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-sky-700 hover:bg-sky-50">
                   <Sparkles className="mr-1.5 h-3.5 w-3.5" />
@@ -64,14 +64,14 @@ export function CrudFormModal({
               </div>
 
               <div className="flex items-start gap-3">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-sm">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-sm sm:h-11 sm:w-11">
                   <FileText className="h-5 w-5" />
                 </div>
-                <div className="min-w-0">
-                  <CardTitle className="text-2xl font-semibold tracking-tight text-slate-900">
+                <div className="min-w-0 flex-1">
+                  <CardTitle className="text-lg font-semibold tracking-tight text-slate-900 sm:text-2xl">
                     {title}
                   </CardTitle>
-                  <CardDescription className="mt-1 max-w-2xl text-sm leading-6 text-slate-500">
+                  <CardDescription className="mt-1 max-w-xl text-sm leading-6 text-slate-500 sm:max-w-2xl">
                     {description}
                   </CardDescription>
                 </div>
@@ -90,9 +90,9 @@ export function CrudFormModal({
           </div>
         </CardHeader>
 
-        <CardContent className="px-0">
-          <form onSubmit={onSubmit}>
-            <div className="max-h-[70vh] overflow-y-auto px-5 py-5 sm:px-7">
+        <CardContent className="min-h-0 px-0">
+          <form onSubmit={onSubmit} className="grid h-full min-h-0 grid-rows-[minmax(0,1fr)_auto]">
+            <div className="min-h-0 overflow-y-auto overflow-x-hidden px-4 py-4 pb-3 sm:px-7 sm:py-5">
               <div className="grid gap-4 md:grid-cols-2">
                 {module.fields.map((field) => {
                   const isWide = field.type === "textarea" || field.type === "boolean"
@@ -166,19 +166,21 @@ export function CrudFormModal({
               </div>
             </div>
 
-            <div className="flex flex-col gap-3 border-t border-slate-200 bg-white/95 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-7">
-              <p className="text-sm text-slate-500">
-                {isCreate
-                  ? "Revisa la informacion antes de crear el registro."
-                  : "Guarda los cambios cuando termines de editar."}
-              </p>
-
-              <div className="flex flex-wrap justify-end gap-2">
-                <Button type="button" variant="outline" onClick={onClose} className="rounded-full bg-white">
+            <div className="sticky bottom-0 z-10 border-t border-slate-200 bg-white px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:px-7 sm:py-4 sm:pb-4">
+              <div className="grid grid-cols-2 gap-2 sm:flex sm:flex-row sm:flex-wrap sm:justify-end">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={onClose}
+                  className="h-11 w-full rounded-full bg-white sm:h-8 sm:w-auto"
+                >
                   <X className="mr-1.5 h-4 w-4" />
                   Cancelar
                 </Button>
-                <Button type="submit" className="rounded-full bg-slate-900 px-5 text-white hover:bg-slate-800">
+                <Button
+                  type="submit"
+                  className="h-11 w-full rounded-full bg-slate-900 px-4 text-white hover:bg-slate-800 sm:h-8 sm:w-auto sm:px-5"
+                >
                   {isCreate ? (
                     <>
                       <Plus className="mr-1.5 h-4 w-4" />
